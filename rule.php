@@ -8,4 +8,5 @@ class Rule {
 
 	}
 }
+echo "test";
 ?>
