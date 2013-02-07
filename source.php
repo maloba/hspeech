@@ -13,5 +13,17 @@ class Source {
 		$result = mysql_query($query) or die("Could not insert Source into the database ".mysql_error());
 		return true;
 	}
+
+	public static function editSource($sourceId, $type, $sourceReference, $content) {
+		$query = "update source set values('','$type', '$sourceReference', '$content') where id='$sourceId'";
+		$result = mysql_query($query) or die("Could not update Source into the database ".mysql_error());
+		return true;
+	}
+
+	public static function removeSource($source_id) {
+		$query = "delete from source where id='$sourceId'";
+		$result = mysql_query($query) or die("Could not delete from Source in the database ".mysql_error());
+		return true;
+	}
 }
 ?>
