@@ -1,8 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 include 'database_connect.php';
 
 class Source {
-	public static function getContent(content_id) {
+	public static function getContent($content_id) {
 		$query = "select from source where id='"+ content_id +"'";
 		$result = mysql_query($query) or die("Could select source from database ".mysql_error());
 		return mysql_fetch_object($result);
