@@ -3,7 +3,9 @@ include 'database_connect.php';
 
 class Rule {
 	public static function testContent($content, $regex) {
-		//TODO regex comparison
+		if(preg_match_all("$regex", $content)) {
+			$violationsList = preg_grep("$regex", $content);
+		}
 	}
 
 	public static function testAllRules($content_id) {
