@@ -27,7 +27,11 @@ class Source {
 	}
 
 	public static function getAllSourcesByType($type) {
-		$query = "select * from source where type='".$type."'";
+		if($type == "all") {
+			$query = "select * from source";	
+		} else {
+			$query = "select * from source where type='".$type."'";
+		}
 		$result = mysql_query($query) or die("Could not get all the sources".mysql_error());
 		$allSources = array();
 		while ($row = mysql_fetch_assoc($result)) {

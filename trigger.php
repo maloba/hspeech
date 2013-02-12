@@ -1,11 +1,12 @@
 <?php
-include 'rules.php';
+include 'rule.php';
+include 'source.php';
 
 function test($type) {
 	$sourceList = Source::getAllSourcesByType($type);
 	foreach ($sourceList as $source) {
 		//Testing the content against all the regex rules in the database
-		Rules::testAllRules($source['id']);
+		Rule::testAllRules($source['id']);
 	}
 }
 

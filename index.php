@@ -5,7 +5,7 @@ include 'source.php';
 //Display list of sources
 include '/views/header.php';
 
-$sourceList = Source::getAllSources();
+$sourceList = Source::getAllSourcesByType("all");
 echo "<div>";
 echo "<table>";
 foreach ($sourceList as $source) {
