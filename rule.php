@@ -2,9 +2,10 @@
 include 'database_connect.php';
 
 class Rule {
-	public static function testContent($content, $regex) {
+	public static function testContent($content, $content_id, $regex) {
 		if(preg_match_all("$regex", $content)) {
 			$violationsList = preg_grep("$regex", $content);
+			
 		}
 	}
 
@@ -14,7 +15,7 @@ class Rule {
 		
 		foreach ($allRules as $rules) {
 			$regex = $regex['regex'];
-			Rule::testContent($content, $regex);
+			Rule::testContent($content, $content_id, $regex);
 		}
 	}
 
