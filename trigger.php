@@ -8,6 +8,7 @@ function test($type) {
 		//Testing the content against all the regex rules in the database
 		Rule::testAllRules($source['id']);
 	}
+	echo "Sms tested for violations";
 }
 
 if($_REQUEST['type'] == "sms") {
