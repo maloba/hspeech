@@ -1,11 +1,16 @@
 <?php
 include 'database_connect.php';
+include 'violation.php';
 
 class Rule {
-	public static function testContent($content, $content_id, $regex) {
-		if(preg_match_all("$regex", $content)) {
-			$violationsList = preg_grep("$regex", $content);
-
+	public static function testContent($content, $content_id, $regex, $rule_id) {
+		$matches = array();
+		if(preg_match_all($regex, $content, $matches)) {
+			foreach ($matches as $violation) {
+				foreach ($violation as $v) {
+					Violation::addViolation($content_id, $rule_id, $v);	
+				}
+			}
 		}
 	}
 
@@ -15,7 +20,7 @@ class Rule {
 
 		foreach ($allRules as $rule) {
 			$regex = $rule['regex'];
-			Rule::testContent($content, $content_id, $regex);
+			Rule::testContent($content->content, $content_id, $regex, $rule['id']);
 		}
 	}
 
