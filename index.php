@@ -15,7 +15,7 @@ foreach ($sourceList as $source) {
 	echo "<td>".$source['sourceReference']."</td>";
 	echo "<td>".$source['content']."</td>";
 	echo "<td><a href='#'>Edit</a></td>";
-	echo "<td><a href='#'>View Violation</a></td>";
+	echo "<td><a href='view_violation.php?id=".$source['id']."'>View Violation</a></td>";
 	echo "</tr>";
 }
 echo "</table>";

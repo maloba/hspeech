@@ -33,5 +33,11 @@ class Rule {
 		}
 		return $allRules;
 	}
+
+	public static function getRule($rule_id) {
+		$query = "select * from rules where id='$rule_id'";
+		$result = mysql_query($query) or die("Could #getRule(id)# source from database ".mysql_error());
+		return mysql_fetch_object($result);
+	}
 }
 ?>
