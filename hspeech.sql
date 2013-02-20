@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 12, 2013 at 07:36 PM
+-- Generation Time: Feb 20, 2013 at 07:02 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -51,15 +51,9 @@ CREATE TABLE IF NOT EXISTS `source` (
   `type` text NOT NULL,
   `sourceReference` text NOT NULL,
   `content` text NOT NULL,
+  `analysed` varchar(13) NOT NULL DEFAULT 'false',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `source`
---
-
-INSERT INTO `source` (`id`, `type`, `sourceReference`, `content`) VALUES
-(1, 'sms', '123123123', 'President kibaki yesterday expressed concern over reports that some Kenyans are using social media to spread hate speech ahead of the March 4 polls.\r\n“I call kibaki the young people to rise up in unity and reject all perpetrators of hate and division,” said the President.');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -73,16 +67,15 @@ CREATE TABLE IF NOT EXISTS `violations` (
   `sourceId` int(11) NOT NULL,
   `textWithViolation` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `violations`
 --
 
 INSERT INTO `violations` (`id`, `ruleId`, `sourceId`, `textWithViolation`) VALUES
-(2, 1, 1, 'President kibaki yesterday expressed concern over reports that some Kenyans are using social media to spread hate speech ahead of the March 4 polls.\r'),
-(3, 1, 1, 'President kibaki yesterday expressed concern over reports that some Kenyans are using social media to spread hate speech ahead of the March 4 polls.\r'),
-(4, 1, 1, '“I call kibaki the young people to rise up in unity and reject all perpetrators of hate and division,” said the President.');
+(9, 1, 1, 'President kibaki yesterday expressed concern over reports that some Kenyans are using social media to spread hate speech ahead of the March 4 polls.\r'),
+(10, 1, 1, '“I call kibaki the young people to rise up in unity and reject all perpetrators of hate and division,” said the President.');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
