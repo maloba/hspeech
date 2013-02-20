@@ -21,7 +21,7 @@ class Source {
 	}
 
 	public static function setAsAnaylsed($sourceId) {
-		$query = "update source set analysed='false' where id='$sourceId'";
+		$query = "update source set analysed='true' where id='$sourceId'";
 		$result = mysql_query($query) or die("Could not #setAsAnaylsed()# into the database ".mysql_error());
 		return true;
 	}
@@ -33,10 +33,11 @@ class Source {
 	}
 
 	public static function getAllSourcesByType($type) {
-		getAllSourcesByType($type, 'false');
+		return Source::getAllSources($type, 'false');
 	}
 
 	public static function getAllSources($type, $isAnalysed) {
+		$query = "";
 		if($type == "all") {
 			if($isAnalysed == "false") {
 				$query = "select * from source where analysed='false'";
@@ -51,6 +52,7 @@ class Source {
 			}
 		}
 		$result = mysql_query($query) or die("Could not get all the sources".mysql_error());
+		$num = mysql_num_rows($result);
 		$allSources = array();
 		while ($row = mysql_fetch_assoc($result)) {
 		    array_push($allSources,array('id'  => $row['id'], 'type' => $row['type'], 'sourceReference' => $row['sourceReference'], 'content' => $row['content']));
@@ -69,7 +71,7 @@ class Source {
 	}
 
 	public static function getTweets($handle){
-		$tweets = json_decode(file_get_contents("https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name={$handle}&count=100"));
+		$tweets = json_decode(file_get_contents("http://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name={$handle}&count=100"));
 		foreach ($tweets as $tweet) {
 			addSource("twitter", $handle, $tweet['text']);
 		}

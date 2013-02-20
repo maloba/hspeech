@@ -2,6 +2,8 @@
 include 'rule.php';
 include 'source.php';
 
+echo extension_loaded('openssl');
+
 function test($type) {
 	$sourceList = Source::getAllSourcesByType($type);
 	foreach ($sourceList as $source) {
@@ -19,8 +21,8 @@ if($_REQUEST['type'] == "sms") {
 
 if($_REQUEST['type'] == "twitter") {
 	//pull all the latest tweets
-	$sourceList = Source::getAllTwitterHandles();
-	foreach ($sourceList as $twitterUsers) {
+	$twitterHandles = Source::getAllTwitterHandles();
+	foreach ($twitterHandles as $twitterUsers) {
 		Source::getTweets($twitterUsers['sourceReference']);
 	}
 	//test the tweets for violations
