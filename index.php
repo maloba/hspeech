@@ -5,7 +5,25 @@ include 'source.php';
 //Display list of sources
 include '/views/header.php';
 
-$sourceList = Source::getAllSourcesByType("all");
+$sourceList = Source::getAllSources("all", "true");
+?>
+
+<div id="add-new-source">
+	<form action="saveSource.php">
+		<label for="type"></label>
+		<select name="type">
+			<option value="twitter">Twitter</option>
+			<option value="sms">Sms</option>
+			<option value="blog">Blog</option>
+		</select>
+
+		<label for="reference"></label>
+		<input name="reference">
+
+		<input type="submit" value="Save Source">
+	</form>
+</div>
+<?php
 echo "<div>";
 echo "<table>";
 foreach ($sourceList as $source) {

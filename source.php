@@ -36,7 +36,7 @@ class Source {
 		getAllSourcesByType($type, 'false');
 	}
 
-	public static function getAllSourcesByType($type, $isAnalysed) {
+	public static function getAllSources($type, $isAnalysed) {
 		if($type == "all") {
 			if($isAnalysed == "false") {
 				$query = "select * from source where analysed='false'";
@@ -56,6 +56,27 @@ class Source {
 		    array_push($allSources,array('id'  => $row['id'], 'type' => $row['type'], 'sourceReference' => $row['sourceReference'], 'content' => $row['content']));
 		}
 		return $allSources;
+	}
+
+	public static function getAllTwitterHandles() {
+		$query = "select distinct id, sourceReference from source where type='twitter'";
+		$result = mysql_query($query) or die("Could not #getAllTwitterHandles(id)# source from database ".mysql_error());
+		$allSources = array();
+		while ($row = mysql_fetch_assoc($result)) {
+		    array_push($allSources,array('id'  => $row['id'] ,'sourceReference' => $row['sourceReference']));
+		}
+		return $allSources;
+	}
+
+	public static function getTweets($handle){
+		$tweets = json_decode(file_get_contents("https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name={$handle}&count=100"));
+		foreach ($tweets as $tweet) {
+			addSource("twitter", $handle, $tweet['text']);
+		}
+	}
+
+	public static function getBlogPosts($rssUrl){
+
 	}
 }
 ?>

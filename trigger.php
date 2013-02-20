@@ -13,13 +13,20 @@ function test($type) {
 }
 
 if($_REQUEST['type'] == "sms") {
-	//query for sms or analyse the sms messages that are already stored in the database
+	//sms will be recieved via smssync..there is no need to poll for messages
 	test("sms");
 }
+
 if($_REQUEST['type'] == "twitter") {
-	//query for
+	//pull all the latest tweets
+	$sourceList = Source::getAllTwitterHandles();
+	foreach ($sourceList as $twitterUsers) {
+		Source::getTweets($twitterUsers['sourceReference']);
+	}
+	//test the tweets for violations
 	test("twitter");
 }
+
 if($_REQUEST['type'] == "blog") {
 	test("blog");
 }
