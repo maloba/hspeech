@@ -7,6 +7,7 @@ function test($type) {
 	foreach ($sourceList as $source) {
 		//Testing the content against all the regex rules in the database
 		Rule::testAllRules($source['id']);
+		Source::setAsAnaylsed($source['id']);
 	}
 	echo "Sms tested for violations";
 }

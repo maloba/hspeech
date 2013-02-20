@@ -9,7 +9,7 @@ class Source {
 	}
 
 	public static function addSource($type, $reference, $content){
-		$query = "insert into source values('','$type', '$reference', '$content')";
+		$query = "insert into source values('','$type', '$reference', '$content', 'false')";
 		$result = mysql_query($query) or die("Could not #addSource()# into the database ".mysql_error());
 		return true;
 	}
@@ -20,6 +20,12 @@ class Source {
 		return true;
 	}
 
+	public static function setAsAnaylsed($sourceId) {
+		$query = "update source set analysed='false' where id='$sourceId'";
+		$result = mysql_query($query) or die("Could not #setAsAnaylsed()# into the database ".mysql_error());
+		return true;
+	}
+
 	public static function removeSource($source_id) {
 		$query = "delete from source where id='$sourceId'";
 		$result = mysql_query($query) or die("Could not delete from Source in the database ".mysql_error());
@@ -27,10 +33,22 @@ class Source {
 	}
 
 	public static function getAllSourcesByType($type) {
+		getAllSourcesByType($type, 'false');
+	}
+
+	public static function getAllSourcesByType($type, $isAnalysed) {
 		if($type == "all") {
-			$query = "select * from source";	
+			if($isAnalysed == "false") {
+				$query = "select * from source where analysed='false'";
+			} else {
+				$query = "select * from source where analysed='true'";
+			}
 		} else {
-			$query = "select * from source where type='".$type."'";
+			if($isAnalysed == "false") {
+				$query = "select * from source where type='".$type."' and analysed='false'";
+			} else {
+				$query = "select * from source where type='".$type."' and analysed='true'";
+			}
 		}
 		$result = mysql_query($query) or die("Could not get all the sources".mysql_error());
 		$allSources = array();
