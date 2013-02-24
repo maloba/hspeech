@@ -1,6 +1,10 @@
 <?php
 
 include 'source.php';
+$secret = "";
+$from = "";
+$message = "";
+$sent_to = "";
 /**
  *  Get the phone number that sent the SMS.
  */
@@ -66,9 +70,7 @@ if (isset($_POST['message_id']))
  * received into a text file.
  *
  */
-if ((strlen($from) > 0) AND (strlen($message) > 0) AND 
-    (strlen($sent_timestamp) > 0 ) AND (strlen($sent_to) > 0) 
-    AND (strlen($message_id) > 0))
+if ($from && $message)
 {
     /* The screte key set here is 123456. Make sure you enter 
      * that on SMSSync. 
@@ -81,7 +83,7 @@ if ((strlen($from) > 0) AND (strlen($message) > 0) AND
     //to a file called test.txt
 
     //$from $message $sent_timestamp $message_id $sent_to
-    Source::addSource("sms", ($from || $sent_to), $message);
+    Source::addSource("sms", ($from), $message);
  
 } 
  
